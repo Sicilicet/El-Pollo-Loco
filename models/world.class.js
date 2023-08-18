@@ -1,13 +1,7 @@
 class World {
-  backgroundObjects = [
-    new BackgroundObject('img/5_background/layers/air.png', 0),
-    new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 0),
-    new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 0),
-    new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 0),
-  ];
-  enemies = [new Chicken(), new Chicken(), new Chicken()];
+  level = level1;
   character = new Character();
-  clouds = [new Cloud()];
+  camera_X = -1000;
   keyboard;
   canvas;
   ctx;
@@ -27,10 +21,14 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.addObjectsToMap(this.backgroundObjects);
-    this.addObjectsToMap(this.clouds);
+    this.ctx.translate(this.camera_X, 0);
+
+    this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.clouds);
     this.addToMap(this.character);
-    this.addObjectsToMap(this.enemies);
+    this.addObjectsToMap(this.level.enemies);
+
+    this.ctx.translate(-this.camera_X, 0);
 
     let self = this;
     requestAnimationFrame(function () {
@@ -45,6 +43,16 @@ class World {
   }
 
   addToMap(mo) {
+    if (mo.otherDirection) {
+      this.ctx.save();
+      this.ctx.translate(mo.width, 0);
+      this.ctx.scale(-1, 1);
+      mo.x = mo.x * -1;
+    }
     this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    if (mo.otherDirection) {
+      mo.x = mo.x * -1;
+      this.ctx.restore();
+    }
   }
 }
