@@ -10,6 +10,8 @@ class MovableObject {
   img;
   speedY = 0;
   acceleration = 2;
+  health = 100;
+  lastHit = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -51,18 +53,31 @@ class MovableObject {
     }
   }
 
-  isColliding(obj) {
-    return (
-      this.X + this.width >= obj.X &&
-      this.X <= obj.X + obj.width &&
-      this.Y + this.offsetY + this.height >= obj.Y &&
-      this.Y + this.offsetY <= obj.Y + obj.height &&
-      obj.onCollisionCourse
-    );
+  isColliding(mo) {
+    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+  }
+
+  hit() {
+    this.health -= 5;
+    if (this.health < 0) {
+      this.health = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+
+  isHurt() {
+    let timespassed = new Date().getTime() - this.lastHit; //Difference in millisecond
+    timespassed = timespassed / 1000; //Difference in second
+    return timespassed < 1;
+  }
+
+  isDead() {
+    return this.health == 0;
   }
 
   playAnimation(images) {
-    let i = this.currentImage % this.IMAGES_WALKING.length;
+    let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
