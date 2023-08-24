@@ -23,6 +23,9 @@ window.addEventListener('keydown', (event) => {
   if (event.keyCode == 32) {
     keyBoard.SPACE = true;
   }
+  if (event.keyCode == 68) {
+    keyBoard.D = true;
+  }
 });
 
 window.addEventListener('keyup', (event) => {
@@ -40,5 +43,8 @@ window.addEventListener('keyup', (event) => {
   }
   if (event.keyCode == 32) {
     keyBoard.SPACE = false;
+  }
+  if (event.keyCode == 68) {
+    keyBoard.D = false;
   }
 });
