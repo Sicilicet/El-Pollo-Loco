@@ -16,7 +16,8 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject) { //Throwable object should always fall
+    if (this instanceof ThrowableObject) {
+      //Throwable object should always fall
       return true;
     } else {
       return this.y < 150;
@@ -44,6 +45,13 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.health == 0;
+  }
+
+  removeEnemy(enemy) {
+    let index = enemy.indexOf(this);
+    if (index !== -1) {
+      enemy.splice(index, 1);
+    }
   }
 
   playAnimation(images) {

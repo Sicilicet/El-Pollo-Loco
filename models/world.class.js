@@ -5,9 +5,10 @@ class World {
   keyboard;
   canvas;
   ctx;
+  coin = new Coin();
   healthBar = new HealthBar();
   coinsBar = new CoinBar();
-  bottleBar = new BottelBar();
+  bottleBar = new BottleBar();
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -39,7 +40,9 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+        enemy.hit();
+      } else if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
         this.character.hit();
         this.healthBar.setPercentage(this.character.health);
       }
@@ -52,6 +55,7 @@ class World {
 
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
+    this.addObjectsToMap(this.level.coins);
 
     this.ctx.translate(-this.camera_X, 0);
     //---- Space for fixed objects ----
