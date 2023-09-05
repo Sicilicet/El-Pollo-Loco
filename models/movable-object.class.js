@@ -47,10 +47,10 @@ class MovableObject extends DrawableObject {
     return this.health == 0;
   }
 
-  removeEnemy(enemy) {
-    let index = enemy.indexOf(this);
+  remove(object) {
+    let index = object.indexOf(this);
     if (index !== -1) {
-      enemy.splice(index, 1);
+      object.splice(index, 1);
     }
   }
 

@@ -48,6 +48,8 @@ class Character extends MovableObject {
   speed = 8;
   y = 80; //155
   world;
+  collectedCoins = 0;
+  collectedBottles = 0;
   //walking_sound = new Audio("audio/name");
 
   constructor() {
