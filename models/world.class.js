@@ -5,8 +5,6 @@ class World {
   keyboard;
   canvas;
   ctx;
-  coin = new Coin();
-  bottle = new Bottle();
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bottleBar = new BottleBar();
@@ -30,25 +28,54 @@ class World {
       this.checkCollisionsEnemy();
       this.checkThrowObjects();
       this.checkCollisionItem();
+      this.endbossIsHitByBottle();
     }, 200);
   }
 
   checkThrowObjects() {
     if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(bottle);
+      if (this.character.collectedBottles > 0) {
+        let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+        this.throwableObjects.push(bottle);
+        this.character.collectedBottles--;
+        this.bottleBar.setPercentage(this.character.collectedBottles);
+      } else if (this.character.collectedBottles <= 0) {
+        this.character.collectedBottles == 0;
+      }
     }
   }
 
   checkCollisionsEnemy() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-        enemy.hit();
-      } else if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
-        this.character.hit();
-        this.healthBar.setPercentage(this.character.health);
-      }
+    let allEnemyTypes = [this.level.enemies, this.level.endboss];
+    allEnemyTypes.forEach((allEnemy) => {
+      allEnemy.forEach((enemy) => {
+        if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
+          enemy.hit();
+        } else if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
+          this.character.hit();
+          this.healthBar.setPercentage(this.character.health);
+        }
+      });
     });
+  }
+
+  endbossIsHitByBottle() {
+    this.level.endboss.forEach((endboss) => {
+      this.checkIfAlive(endboss);
+      this.throwableObjects.forEach((bottle) => {
+        //bottle.defineHitbox(endboss);
+        endboss.hit(bottle);
+        //this.endbossbar.setPercentage(endboss.energy);
+      });
+    });
+  }
+
+  checkIfAlive(endboss) {
+    if (endboss.health <= 0 && !endboss.dead) {
+      endboss.dead = true;
+      endboss.health = 0;
+      this.character.killedEndboss = true;
+    }
   }
 
   checkCollisionItem() {
@@ -98,6 +125,7 @@ class World {
 
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.camera_X, 0);
 

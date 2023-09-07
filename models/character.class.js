@@ -50,6 +50,7 @@ class Character extends MovableObject {
   world;
   collectedCoins = 0;
   collectedBottles = 0;
+  killedEndboss = false;
   //walking_sound = new Audio("audio/name");
 
   constructor() {
