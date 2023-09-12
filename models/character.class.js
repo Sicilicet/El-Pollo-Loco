@@ -44,9 +44,10 @@ class Character extends MovableObject {
     'img/2_character_pepe/5_dead/D-56.png',
     'img/2_character_pepe/5_dead/D-57.png',
   ];
-  height = 280;
+  height = 200;
   speed = 8;
-  y = 80; //155
+  damage = 50;
+  y = 235;
   world;
   collectedCoins = 0;
   collectedBottles = 0;

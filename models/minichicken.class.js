@@ -6,10 +6,11 @@ class MiniChicken extends MovableObject {
   ];
   IMAGES_DEAD = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
   movingLeft = true;
+  damage = 1;
   health = 5;
-  height = 40;
+  height = 50;
   width = 40;
-  y = 390;
+  y = 380;
 
   constructor() {
     super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');

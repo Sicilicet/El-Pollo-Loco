@@ -19,20 +19,27 @@ class MovableObject extends DrawableObject {
     if (this instanceof ThrowableObject) {
       return true;
     } else {
-      return this.y < 150;
+      return this.y < 235;
     }
   }
 
   isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+    return (
+    this.x + this.width > mo.x && 
+    this.y + this.height > mo.y && 
+    this.x < mo.x + mo.width && 
+    this.y < mo.y + mo.height
+    )
   }
 
-  hit() {
-    this.health -= 5;
-    if (this.health < 0) {
-      this.health = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+  hit(mo) {
+    if (mo.damage > 0) {
+      this.health -= mo.damage;
+      if (this.health < 0) {
+        this.health = 0;
+      } else {
+        this.lastHit = new Date().getTime();
+      }
     }
   }
 

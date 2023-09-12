@@ -8,6 +8,7 @@ class World {
   healthBar = new HealthBar();
   coinBar = new CoinBar();
   bottleBar = new BottleBar();
+  endbossBar = new EnbossBar();
   throwableObjects = [];
 
   constructor(canvas, keyboard) {
@@ -17,6 +18,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.runThrowAbleObjects();
   }
 
   setWorld() {
@@ -25,11 +27,20 @@ class World {
 
   run() {
     setInterval(() => {
-      this.checkCollisionsEnemy();
-      this.checkThrowObjects();
-      this.checkCollisionItem();
+      this.checkCollisions();
+    }, 70);
+  }
+
+  runThrowAbleObjects() {
+    setInterval(() => {
       this.endbossIsHitByBottle();
-    }, 200);
+      this.checkThrowObjects();
+    }, 150);
+  }
+
+  checkCollisions() {
+    this.checkCollisionsEnemy();
+    this.checkCollisionItem();
   }
 
   checkThrowObjects() {
@@ -49,10 +60,10 @@ class World {
     let allEnemyTypes = [this.level.enemies, this.level.endboss];
     allEnemyTypes.forEach((allEnemy) => {
       allEnemy.forEach((enemy) => {
-        if (this.character.isColliding(enemy) && this.character.isAboveGround()) {
-          enemy.hit();
+        if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead()) {
+          enemy.hit(this.character);
         } else if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
-          this.character.hit();
+          this.character.hit(enemy);
           this.healthBar.setPercentage(this.character.health);
         }
       });
@@ -63,9 +74,11 @@ class World {
     this.level.endboss.forEach((endboss) => {
       this.checkIfAlive(endboss);
       this.throwableObjects.forEach((bottle) => {
-        //bottle.defineHitbox(endboss);
-        endboss.hit(bottle);
-        //this.endbossbar.setPercentage(endboss.energy);
+        if (bottle.isColliding(endboss)) {
+          endboss.hit(bottle);
+          console.log(endboss.health);
+          this.endbossBar.setPercentage(endboss.health);
+        }
       });
     });
   }
@@ -121,6 +134,7 @@ class World {
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
     this.addToMap(this.bottleBar);
+    this.addToMap(this.endbossBar);
     this.ctx.translate(this.camera_X, 0);
 
     this.addToMap(this.character);

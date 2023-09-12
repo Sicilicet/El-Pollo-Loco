@@ -1,4 +1,5 @@
 class ThrowableObject extends MovableObject {
+  damage = 4;
   constructor(x, y) {
     super().loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
     this.x = x;
