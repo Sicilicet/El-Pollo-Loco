@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   health = 100;
   lastHit = 0;
+  endboss_music = new Audio('audio/boss_sound.mp3');
 
   applyGravity() {
     setInterval(() => {
@@ -24,12 +25,7 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
-    return (
-    this.x + this.width > mo.x && 
-    this.y + this.height > mo.y && 
-    this.x < mo.x + mo.width && 
-    this.y < mo.y + mo.height
-    )
+    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x + mo.width && this.y < mo.y + mo.height;
   }
 
   hit(mo) {
@@ -65,6 +61,15 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
+  }
+
+  helloEndboss() {
+    if (!this.endbossAdded && this.world.character.x === 2000) {
+      this.endbossAdded = true;
+      this.endboss_music.volume = 0.2;
+      this.endboss_music.play();
+      world.level.endboss.push(new Endboss());
+    }
   }
 
   moveRight() {

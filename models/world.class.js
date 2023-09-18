@@ -61,7 +61,9 @@ class World {
     allEnemyTypes.forEach((allEnemy) => {
       allEnemy.forEach((enemy) => {
         if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead()) {
-          enemy.hit(this.character);
+          if (enemy instanceof Chicken || enemy instanceof MiniChicken) {
+            enemy.hit(this.character);
+          }
         } else if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !enemy.isDead()) {
           this.character.hit(enemy);
           this.healthBar.setPercentage(this.character.health);

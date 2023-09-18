@@ -40,9 +40,8 @@ class Endboss extends MovableObject {
   width = 450;
   y = -40;
   alerted = false;
-  attacking = false;
-  attacked = false;
   dead = false;
+  damage = 20;
 
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
@@ -52,7 +51,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURTING);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 2350;
-    this.speed = 2;
+    this.speed = 3;
     this.animate();
   }
 
@@ -66,7 +65,7 @@ class Endboss extends MovableObject {
   }
 
   walking() {
-    if (!this.alerted && !this.attacking && !this.isDead()) {
+    if (!this.alerted && !this.isDead()) {
       this.moveLeft();
     }
     if (this.isDead()) {
@@ -83,12 +82,10 @@ class Endboss extends MovableObject {
       this.playAnimation(this.IMAGES_DEAD);
     } else if (this.isHurt() && !this.isDead()) {
       this.playAnimation(this.IMAGES_HURTING);
-    } else if (!this.alerted && !this.attacking && !this.isDead() && !this.isHurt()) {
+    } else if (!this.alerted && !this.isDead() && !this.isHurt()) {
       this.playAnimation(this.IMAGES_WALKING);
-    } else if (this.alerted && !this.attacking && !this.isDead() && !this.isHurt()) {
+    } else if (this.alerted) {
       this.playAnimation(this.IMAGES_ALERTING);
-    } else if (this.attacking && !this.alerted && !this.isDead() && !this.isHurt()) {
-      this.playAnimation(this.IMAGES_ATTACKING);
     }
   }
 }

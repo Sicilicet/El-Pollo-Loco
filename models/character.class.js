@@ -44,6 +44,7 @@ class Character extends MovableObject {
     'img/2_character_pepe/5_dead/D-56.png',
     'img/2_character_pepe/5_dead/D-57.png',
   ];
+  x = 120;
   height = 200;
   speed = 8;
   damage = 50;
@@ -52,7 +53,8 @@ class Character extends MovableObject {
   collectedCoins = 0;
   collectedBottles = 0;
   killedEndboss = false;
-  //walking_sound = new Audio("audio/name");
+  walking_sound = new Audio('audio/walking.mp3');
+  hurt_sound = new Audio('audio/hurt.mp3');
 
   constructor() {
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -67,17 +69,14 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      //this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_X) {
         this.moveRight();
         this.otherDirection = false;
-        //this.walking_sound.play();
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
-        //this.walking_sound.play();
       }
 
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
@@ -85,17 +84,24 @@ class Character extends MovableObject {
       }
 
       this.world.camera_X = -this.x + 100;
+      this.helloEndboss();
     }, 1000 / 60);
 
     setInterval(() => {
+      this.walking_sound.pause();
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
+        this.hurt_sound.volume = 0.2;
+        this.hurt_sound.play();
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
+        this.walking_sound.pause();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
+        this.walking_sound.volume = 0.2;
+        this.walking_sound.play();
       } else {
         this.playAnimation(this.IMAGES_IDLE);
       }
