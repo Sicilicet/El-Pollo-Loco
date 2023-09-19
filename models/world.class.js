@@ -35,7 +35,7 @@ class World {
     setInterval(() => {
       this.endbossIsHitByBottle();
       this.checkThrowObjects();
-    }, 150);
+    }, 160);
   }
 
   checkCollisions() {
@@ -133,10 +133,10 @@ class World {
 
     this.ctx.translate(-this.camera_X, 0);
     //---- Space for fixed objects ----
+    this.drawEnbossBar();
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
     this.addToMap(this.bottleBar);
-    this.addToMap(this.endbossBar);
     this.ctx.translate(this.camera_X, 0);
 
     this.addToMap(this.character);
@@ -149,6 +149,12 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
+  }
+
+  drawEnbossBar() {
+    if (this.character.triggerd_boss) {
+      this.addToMap(this.endbossBar);
+    }
   }
 
   addObjectsToMap(objects) {

@@ -65,6 +65,7 @@ class MovableObject extends DrawableObject {
 
   helloEndboss() {
     if (!this.endbossAdded && this.world.character.x === 2000) {
+      this.triggerd_boss = true;
       this.endbossAdded = true;
       this.endboss_music.volume = 0.2;
       this.endboss_music.play();

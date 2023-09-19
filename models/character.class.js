@@ -52,6 +52,7 @@ class Character extends MovableObject {
   world;
   collectedCoins = 0;
   collectedBottles = 0;
+  triggerd_boss = false;
   killedEndboss = false;
   walking_sound = new Audio('audio/walking.mp3');
   hurt_sound = new Audio('audio/hurt.mp3');
