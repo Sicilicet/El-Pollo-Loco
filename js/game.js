@@ -2,10 +2,8 @@ let canvas;
 let world;
 let keyBoard = new Keyboard();
 
-function init() {
-  canvas = document.getElementById('canvas');
-  world = new World(canvas, keyBoard);
-}
+let StartEndscreen = new Audio("audio/game_music.mp3");
+StartEndscreen.volume = 0.4;   
 
 window.addEventListener('keydown', (event) => {
   if (event.keyCode == 39) {
@@ -48,3 +46,47 @@ window.addEventListener('keyup', (event) => {
     keyBoard.D = false;
   }
 });
+
+function playMusic() {
+  StartEndscreen.play();
+  StartEndscreen.addEventListener("ended", () => {
+    StartEndscreen.currentTime = 0;
+    StartEndscreen.play();
+  })
+}
+
+function showOptions() {
+  playMusic();
+  document.getElementById('overlay').classList.remove('d-none');
+  document.getElementById('buttons').classList.remove('d-none');
+  document.getElementById('controls').classList.add('d-none');
+  document.getElementById('startscreen').classList.add('d-none');
+  document.getElementById('backwards').classList.add('d-none');
+}
+
+function newGame() {
+  document.getElementById('overlay').classList.add('d-none');
+  document.getElementById('endScreen').classList.add('d-none');
+  StartEndscreen.play();
+  window.location.reload();
+}
+
+function showControls() {
+  document.getElementById('controls').classList.remove('d-none');
+  document.getElementById('buttons').classList.add('d-none');
+  document.getElementById('backwards').classList.remove('d-none');
+  //document.getElementById('mobilButtons').classList.remove("mobile-buttons");
+}
+
+function startGame2() {
+  StartEndscreen.pause();
+  document.getElementById('overlay').classList.add('d-none');
+  //document.getElementById('mobilButtons').classList.add("mobile-buttons");
+  init();
+}
+
+function init() {
+  initLevel();
+  canvas = document.getElementById('canvas');
+  world = new World(canvas, keyBoard);
+}

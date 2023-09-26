@@ -27,9 +27,58 @@
     <script src="js/game.js"></script>
     <title>Document</title>
   </head>
-  <body onload="init()">
+  <body>
     <h1>El Pollo Loco</h1>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="content">
+      <canvas id="canvas" width="720" height="480"></canvas>
+      <div class="startscreen" id="startscreen">
+        <img class="startscreenimg" onclick="showOptions()" src="img/9_intro_outro_screens/start/startscreen_2.png" />
+      </div>
+      <div class="overlay d-none" id="overlay">
+        <div class="background"></div>
+        <img class="overlayimg" src="img/5_background/first_half_background.png" />
+        <div class="backwards" id="backwards" onclick="showOptions()">
+          <img src="img/mobile_controls/pfeil-nach-links.png" />
+        </div>
+        <div class="endScreen d-none" id="endScreen">
+          <h2 id="winOrLose">YOU WIN</h2>
+          <div class="button" onclick="newGame()">new game</div>
+        </div>
+        <div class="controls d-none" id="controls">
+          <h3 id="gameControl">Controls</h3>
+          <div class="keyboardKeys">
+            <div class="secondRow">
+              <div class="key">W</div>
+              <p>or</p>
+              <div class="key"><img src="img/mobile_controls/pfeil-nach-oben.png" /></div>
+              <p>Jump</p>
+            </div>
+            <div class="secondRow">
+              <div class="key">A</div>
+              <p>or</p>
+              <div class="key"><img src="img/mobile_controls/pfeil-nach-links.png" /></div>
+              <p>Walk left</p>
+            </div>
+            <div class="secondRow">
+              <div class="key">S</div>
+              <p>or</p>
+              <div class="key"><img src="img/mobile_controls/pfeil-nach-oben.png" style="rotate: 180deg" /></div>
+              <p>throw bottle</p>
+            </div>
+            <div class="secondRow">
+              <div class="key">D</div>
+              <p>or</p>
+              <div class="key"><img src="img/mobile_controls/pfeil-nach-rechts.png" alt="" /></div>
+              <p>walk right</p>
+            </div>
+          </div>
+        </div>
+        <div class="buttons d-none" id="buttons">
+          <div class="button" onclick="startGame2()">Start game</div>
+          <div class="button mobileversion" id="controlsInstructions" onclick="showControls()">Controls</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
