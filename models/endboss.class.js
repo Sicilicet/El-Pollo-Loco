@@ -69,11 +69,11 @@ class Endboss extends MovableObject {
       this.moveLeft();
     }
     if (this.isDead()) {
-      //this.endboss_coming.pause();
+      this.endboss_music.pause();
       this.Damage = 0;
-      //setTimeout(() => {
-      //  showEndscreen(this);
-      // }, 2000);
+      setTimeout(() => {
+        showEndscreen(this);
+      }, 1000);
     }
   }
 

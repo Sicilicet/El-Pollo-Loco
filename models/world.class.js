@@ -10,6 +10,7 @@ class World {
   bottleBar = new BottleBar();
   endbossBar = new EnbossBar();
   throwableObjects = [];
+  endboss_music = new Audio('audio/boss_sound.mp3');
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');

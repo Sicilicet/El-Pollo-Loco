@@ -85,6 +85,21 @@ function startGame2() {
   init();
 }
 
+function showEndscreen(who) {
+  playMusic();
+    world.character.endboss_music.pause();
+    document.getElementById('overlay').classList.remove("d-none");
+    document.getElementById('endScreen').classList.remove("d-none");
+    document.getElementById('buttons').classList.add("d-none");
+    //document.getElementById('mobilButtons').classList.remove("mobile-buttons");
+    document.getElementById('winOrLose').innerHTML = '';
+if (who instanceof Endboss) {
+  document.getElementById('winOrLose').innerHTML = 'YOU WIN';
+} else {
+  document.getElementById('winOrLose').innerHTML = 'YOU LOSE';
+}
+}
+
 function init() {
   initLevel();
   canvas = document.getElementById('canvas');

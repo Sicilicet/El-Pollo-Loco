@@ -50,6 +50,7 @@ class Character extends MovableObject {
   damage = 50;
   y = 235;
   world;
+  alive = true;
   collectedCoins = 0;
   collectedBottles = 0;
   triggerd_boss = false;
@@ -84,6 +85,7 @@ class Character extends MovableObject {
         this.jump();
       }
 
+      this.characterIsDead();
       this.world.camera_X = -this.x + 100;
       this.helloEndboss();
     }, 1000 / 60);
@@ -107,5 +109,17 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE);
       }
     }, 200);
+  }
+
+  characterIsDead() {
+    if (this.isDead()) {
+      this.alive = false;
+/*       setTimeout(() => {
+        this.y += 5;
+      }, 500); */
+      setTimeout(() => {
+        showEndscreen(this);
+      }, 1500);
+    }
   }
 }

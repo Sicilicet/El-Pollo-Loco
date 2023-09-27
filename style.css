@@ -22,6 +22,20 @@ h1 {
   top: 15%;
 }
 
+h2 {
+  font-size: 60px;
+}
+
+h3 {
+  font-size: 64px;
+  margin: 0;
+  text-shadow: 5px 5px 10px #220d0a;
+  text-align: center;
+  z-index: 4;
+  padding-bottom: 25px;
+  letter-spacing: 5px;
+}
+
 
 canvas {
   position: absolute;
@@ -162,31 +176,6 @@ canvas {
   z-index: 4;
 }
 
-h3 {
-  font-size: 64px;
-  margin: 0;
-  text-shadow: 5px 5px 10px #220d0a;
-  text-align: center;
-  z-index: 4;
-  padding-bottom: 25px;
-  letter-spacing: 5px;
-}
-
-.eggChicks {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: fit-content;
-  z-index: 4;
-  gap: 10px;
-}
-
-.eggChicks img {
-  transform: scaleX(-1);
-  z-index: 4;
-  margin-left: -5px;
-  align-items: end;
-}
 
 .wrappingBox {
   display: flex;
@@ -210,9 +199,9 @@ h3 {
   margin-top: 20px;
   background-color: #fe870f;
   color: #a0220a;
-  font-size: 30px;
-  height: 50px;
-  width: 180px;
+  font-size: 60px;
+  height: 100px;
+  width: 350px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -369,6 +358,7 @@ h3 {
 
   #winOrLose {
     margin: 0;
+    font-size: 50px;
   }
 
   h1 {
