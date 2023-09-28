@@ -37,9 +37,9 @@ h3 {
   letter-spacing: 5px;
 }
 
-
 canvas {
   position: absolute;
+  display: block;
   background-color: black;
   box-shadow: 0px 0px 10px 8px rgba(255, 255, 255, 0.5);
 }
@@ -176,7 +176,6 @@ canvas {
   width: fit-content;
   z-index: 4;
 }
-
 
 .wrappingBox {
   display: flex;
