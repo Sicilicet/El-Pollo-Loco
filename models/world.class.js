@@ -112,6 +112,11 @@ class World {
   }
 
   whatToDoWithCoin(item) {
+    item.collect_coin.volume = 0.5;
+    item.collect_coin.play();
+    setTimeout(() => {
+      item.collect_coin.pause();
+    }, 400);
     item.remove(this.level.coins);
     this.character.collectedCoins++;
     this.coinBar.setPercentage(this.character.collectedCoins);
