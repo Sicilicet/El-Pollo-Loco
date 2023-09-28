@@ -42,7 +42,6 @@ class Endboss extends MovableObject {
   alerted = false;
   dead = false;
   damage = 20;
-  spawned = false;
 
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
@@ -58,13 +57,13 @@ class Endboss extends MovableObject {
 
   animate() {
     let i = 0;
-    const alert = setInterval(() => {
+    const spawn = setInterval(() => {
       if (i < 8) {
         this.playAnimation(this.IMAGES_ALERTING);
       } else if (i < 16) {
         this.playAnimation(this.IMAGES_ATTACKING);
       } else {
-        clearInterval(alert);
+        clearInterval(spawn);
         setInterval(() => {
           this.walking();
         }, 1000 / 60);
