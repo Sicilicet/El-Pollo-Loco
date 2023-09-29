@@ -79,7 +79,6 @@ class World {
       this.throwableObjects.forEach((bottle) => {
         if (bottle.isColliding(endboss)) {
           endboss.hit(bottle);
-          console.log(endboss.health);
           this.endbossBar.setPercentage(endboss.health);
         }
       });
@@ -174,7 +173,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    //mo.drawFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
