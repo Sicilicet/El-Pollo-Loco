@@ -11,6 +11,7 @@ class World {
   endbossBar = new EnbossBar();
   throwableObjects = [];
   endboss_music = new Audio('audio/boss_sound.mp3');
+  chicken_sound = new Audio('audio/chickens.mp3');
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -27,6 +28,8 @@ class World {
   }
 
   run() {
+    this.chicken_sound.volume = 0.4;
+    this.chicken_sound.play();
     setInterval(() => {
       this.checkCollisions();
     }, 70);
@@ -111,7 +114,7 @@ class World {
   }
 
   whatToDoWithCoin(item) {
-    item.collect_coin.volume = 0.5;
+    item.collect_coin.volume = 0.2;
     item.collect_coin.play();
     setTimeout(() => {
       item.collect_coin.pause();

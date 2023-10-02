@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="img/sombrero.png" />
+    <link rel="icon" type="image/png" href="img/sombrero.png">
     <link rel="stylesheet" href="style.css" />
     <title>El Pollo Loco</title>
   </head>
@@ -17,7 +17,10 @@
     <div class="content">
       <canvas id="canvas" width="720" height="480"></canvas>
       <div class="startscreen" id="startscreen">
-        <img class="startscreenimg" onclick="showOptions()" src="img/9_intro_outro_screens/start/startscreen_2.png" />
+        <img class="startscreenimg" src="img/9_intro_outro_screens/start/startscreen_2.png" />
+        <div class="forwards" onclick="showOptions()">
+          <img src="img/mobile_controls/pfeil-nach-rechts.png" />
+        </div>
       </div>
       <div class="overlay d-none" id="overlay">
         <div class="background"></div>

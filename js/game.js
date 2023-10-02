@@ -124,6 +124,7 @@ function startGame2() {
 
 function showEndscreen(who) {
   playMusic();
+  world.chicken_sound.pause();
   world.character.endboss_music.pause();
   document.getElementById('overlay').classList.remove('d-none');
   document.getElementById('endScreen').classList.remove('d-none');
