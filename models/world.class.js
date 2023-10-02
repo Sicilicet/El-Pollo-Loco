@@ -61,7 +61,7 @@ class World {
     let allEnemyTypes = [this.level.enemies, this.level.endboss];
     allEnemyTypes.forEach((allEnemy) => {
       allEnemy.forEach((enemy) => {
-        if (this.character.isColliding(enemy) && this.character.isAboveGround() && !enemy.isDead()) {
+        if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY <= 0 && !enemy.isDead()) {
           if (enemy instanceof Chicken || enemy instanceof MiniChicken) {
             enemy.hit(this.character);
           }

@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   health = 100;
   lastHit = 0;
+  isFalling = false;
   endboss_music = new Audio('audio/boss_sound.mp3');
 
   applyGravity() {
@@ -20,6 +21,7 @@ class MovableObject extends DrawableObject {
     if (this instanceof ThrowableObject) {
       return true;
     } else {
+      this.isFalling = true;
       return this.y < 235;
     }
   }

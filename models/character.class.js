@@ -114,9 +114,6 @@ class Character extends MovableObject {
   characterIsDead() {
     if (this.isDead()) {
       this.alive = false;
-/*       setTimeout(() => {
-        this.y += 5;
-      }, 500); */
       setTimeout(() => {
         showEndscreen(this);
       }, 1500);
