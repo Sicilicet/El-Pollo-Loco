@@ -4,6 +4,12 @@ class Bottle extends CollectableObject {
   y = 350;
   width = 80;
   height = 80;
+  offset = {
+    top: 20,
+    left: 40,
+    right: 20,
+    bottom: 30,
+  };
 
   constructor(x) {
     super();

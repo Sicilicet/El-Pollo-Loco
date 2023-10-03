@@ -6,6 +6,12 @@ class MovableObject extends DrawableObject {
   health = 100;
   lastHit = 0;
   isFalling = false;
+  offset = {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
   endboss_music = new Audio('audio/boss_sound.mp3');
 
   applyGravity() {
@@ -26,8 +32,27 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  isColliding(mo) {
+  /*   isColliding(mo) {
     return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x + mo.width && this.y < mo.y + mo.height;
+  } */
+
+  hitbox(mo) {
+    this.hitboxY = this.x + this.offset.top;
+    this.hitboxWidth = this.width - (this.offset.left + this.offset.right);
+    this.hitboxHeight = this.height - this.offset.bottom;
+    mo.hitboxY = mo.y + mo.offset.top;
+    mo.hitboxWidth = mo.width - (mo.offset.left + mo.offset.right);
+    mo.hitboxHeight = mo.height - mo.offset.bottom;
+  }
+
+  isColliding(mo) {
+    this.hitbox(mo);
+    return (
+      this.hitboxX + this.hitboxWidth > mo.hitboxX &&
+      this.hitboxX < mo.hitboxX + mo.hitboxWidth &&
+      this.hitboxY + this.hitboxHeight > mo.hitboxY &&
+      this.hitboxY < mo.hitboxY + mo.hitboxHeight
+    );
   }
 
   hit(mo) {

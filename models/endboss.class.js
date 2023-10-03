@@ -36,6 +36,12 @@ class Endboss extends MovableObject {
     'img/4_enemie_boss_chicken/5_dead/G26.png',
   ];
 
+  offset = {
+    top: 100,
+    left: 100,
+    right: 80,
+    bottom: 150,
+  };
   height = 500;
   width = 450;
   y = -40;

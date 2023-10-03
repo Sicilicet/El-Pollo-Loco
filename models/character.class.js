@@ -50,6 +50,12 @@ class Character extends MovableObject {
   damage = 50;
   y = 235;
   world;
+  offset = {
+    top: 75,
+    left: 30,
+    right: 40,
+    bottom: 90,
+  };
   alive = true;
   collectedCoins = 0;
   collectedBottles = 0;
