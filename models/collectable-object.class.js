@@ -14,7 +14,7 @@ class CollectableObject extends MovableObject {
         }
       } */
 
-      drawFrameTwo(ctx) {
+/*       drawFrameTwo(ctx) {
         if (this instanceof Coin || this instanceof Bottle) {
           ctx.beginPath();
           ctx.linewidth = '10';
@@ -27,5 +27,5 @@ class CollectableObject extends MovableObject {
           );
           ctx.stroke();
         }
-      }
+      } */
 }

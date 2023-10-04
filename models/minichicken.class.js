@@ -6,10 +6,10 @@ class MiniChicken extends MovableObject {
   ];
   IMAGES_DEAD = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
   offset = {
-    top: 10,
+    top: 0,
     left: 10,
     right: 10,
-    bottom: 20,
+    bottom: 0,
   };
   movingLeft = true;
   damage = 1;
