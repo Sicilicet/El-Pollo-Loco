@@ -1,8 +1,4 @@
 class DrawableObject {
-  x = 120;
-  y = 270;
-  height = 130;
-  width = 110;
   hitboxY;
   hitboxX;
   hitboxWidth;
@@ -34,7 +30,7 @@ class DrawableObject {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
-  drawFrame(ctx) {
+/*   drawFrame(ctx) {
     if (this instanceof Character || this instanceof Chicken || this instanceof MiniChicken || this instanceof Endboss) {
       ctx.beginPath();
       ctx.linewidth = '10';
@@ -42,7 +38,7 @@ class DrawableObject {
       ctx.rect(this.x, this.y, this.width, this.height);
       ctx.stroke();
     }
-  }
+  } */
 
   drawFrameTwo(ctx) {
     if (this instanceof Character || this instanceof Chicken || this instanceof MiniChicken || this instanceof Endboss) {

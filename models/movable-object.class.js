@@ -6,12 +6,6 @@ class MovableObject extends DrawableObject {
   health = 100;
   lastHit = 0;
   isFalling = false;
-  offset = {
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  };
   endboss_music = new Audio('audio/boss_sound.mp3');
 
   applyGravity() {
@@ -32,12 +26,38 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  /*   isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x + mo.width && this.y < mo.y + mo.height;
+  /*     isColliding(mo){
+    return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+    this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+    this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+    this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
   } */
 
+  /*     isColliding(mo) {
+    return this.x + this.width > mo.x && 
+    this.y + this.height > mo.y && 
+    this.x < mo.x + mo.width && 
+    this.y < mo.y + mo.height;
+  } */
+
+  whichDirection(mo) {
+    if (this.otherDirection) {
+      this.hitboxX = this.x + this.offset.right;
+      mo.hitboxX = mo.x + mo.offset.left;
+    } else if (mo.otherDirection) {
+      this.hitboxX = this.x + this.offset.left;
+      mo.hitboxX = mo.x + mo.offset.right;
+    } else if (this.otherDirection && mo.otherDirection) {
+      this.hitboxX = this.x + this.offset.right;
+      mo.hitboxX = mo.x + mo.offset.right;
+    } else {
+      this.hitboxX = this.x + this.offset.left;
+      mo.hitboxX = mo.x + mo.offset.left;
+    }
+  }
+
   hitbox(mo) {
-    this.hitboxY = this.x + this.offset.top;
+    this.hitboxY = this.y + this.offset.top;
     this.hitboxWidth = this.width - (this.offset.left + this.offset.right);
     this.hitboxHeight = this.height - this.offset.bottom;
     mo.hitboxY = mo.y + mo.offset.top;
@@ -46,7 +66,6 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
-    this.hitbox(mo);
     return (
       this.hitboxX + this.hitboxWidth > mo.hitboxX &&
       this.hitboxX < mo.hitboxX + mo.hitboxWidth &&

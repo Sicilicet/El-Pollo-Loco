@@ -4,7 +4,7 @@ class CollectableObject extends MovableObject {
     width;
     height;
 
-    drawFrame(ctx) {
+/*     drawFrame(ctx) {
         if (this instanceof Coin || this instanceof Bottle) {
           ctx.beginPath();
           ctx.linewidth = '10';
@@ -12,13 +12,13 @@ class CollectableObject extends MovableObject {
           ctx.rect(this.x, this.y, this.width, this.height);
           ctx.stroke();
         }
-      }
+      } */
 
       drawFrameTwo(ctx) {
         if (this instanceof Coin || this instanceof Bottle) {
           ctx.beginPath();
           ctx.linewidth = '10';
-          ctx.strokeStyle = 'green';
+          ctx.strokeStyle = 'black';
           ctx.rect(
             (this.hitboxX = this.x + this.offset.left),
             (this.hitboxY = this.y + this.offset.top),

@@ -64,6 +64,8 @@ class World {
     let allEnemyTypes = [this.level.enemies, this.level.endboss];
     allEnemyTypes.forEach((allEnemy) => {
       allEnemy.forEach((enemy) => {
+        this.character.whichDirection(enemy);
+        this.character.hitbox(enemy);
         if (this.character.isColliding(enemy) && this.character.isAboveGround() && this.character.speedY <= 0 && !enemy.isDead()) {
           if (enemy instanceof Chicken || enemy instanceof MiniChicken) {
             enemy.hit(this.character);
@@ -80,6 +82,8 @@ class World {
     this.level.endboss.forEach((endboss) => {
       this.checkIfAlive(endboss);
       this.throwableObjects.forEach((bottle) => {
+        bottle.whichDirection(endboss);
+        bottle.hitbox(endboss);
         if (bottle.isColliding(endboss)) {
           endboss.hit(bottle);
           this.endbossBar.setPercentage(endboss.health);
@@ -101,6 +105,8 @@ class World {
       let collectableItems = [this.level.coins, this.level.bottles];
       collectableItems.forEach((allItems) => {
         allItems.forEach((item) => {
+          this.character.whichDirection(item);
+          this.character.hitbox(item);
           if (this.character.isColliding(item)) {
             if (item instanceof Coin) {
               this.whatToDoWithCoin(item);
@@ -176,7 +182,7 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    /*     mo.drawFrame(this.ctx); */
     mo.drawFrameTwo(this.ctx);
 
     if (mo.otherDirection) {
