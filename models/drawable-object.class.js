@@ -29,29 +29,4 @@ class DrawableObject {
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
-
-/*   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof MiniChicken || this instanceof Endboss) {
-      ctx.beginPath();
-      ctx.linewidth = '10';
-      ctx.strokeStyle = 'blue';
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  } */
-
-/*   drawFrameTwo(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof MiniChicken || this instanceof Endboss) {
-      ctx.beginPath();
-      ctx.linewidth = '10';
-      ctx.strokeStyle = 'green';
-      ctx.rect(
-        (this.hitboxX = this.x + this.offset.left),
-        (this.hitboxY = this.y + this.offset.top),
-        (this.hitboxWidth = this.width - (this.offset.left + this.offset.right)),
-        (this.hitboxHeight = this.height - this.offset.bottom)
-      );
-      ctx.stroke();
-    }
-  } */
 }

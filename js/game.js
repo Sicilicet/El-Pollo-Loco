@@ -138,6 +138,17 @@ function showEndscreen(who) {
   }
 }
 
+function toggleSound() {
+  let image = document.getElementById('speaker');
+  if (world.chicken_sound.paused) {
+    world.chicken_sound.play();
+    image.src = 'img/volume.png';
+  } else {
+    world.chicken_sound.pause();
+    image.src = 'img/mute.png';
+  }
+}
+
 function init() {
   initLevel();
   canvas = document.getElementById('canvas');

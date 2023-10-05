@@ -146,7 +146,7 @@ class World {
     this.addObjectsToMap(this.level.bottles);
 
     this.ctx.translate(-this.camera_X, 0);
-    //---- Space for fixed objects ----
+
     this.drawEnbossBar();
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
@@ -182,8 +182,6 @@ class World {
       this.flipImage(mo);
     }
     mo.draw(this.ctx);
-    /*     mo.drawFrame(this.ctx); */
-/*     mo.drawFrameTwo(this.ctx); */
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
