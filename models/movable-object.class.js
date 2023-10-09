@@ -81,7 +81,7 @@ class MovableObject extends DrawableObject {
     return this.health == 0;
   }
 
-  remove(object) {
+  removeObject(object) {
     let index = object.indexOf(this);
     if (index !== -1) {
       object.splice(index, 1);

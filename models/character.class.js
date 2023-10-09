@@ -77,6 +77,11 @@ class Character extends MovableObject {
   }
 
   animate() {
+    this.animation();
+    this.movement();
+  }
+
+  movement() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_X) {
         this.moveRight();
@@ -91,27 +96,27 @@ class Character extends MovableObject {
       if (this.world.keyboard.SPACE && !this.isAboveGround()) {
         this.jump();
       }
-
+      
       this.characterIsDead();
       this.world.camera_X = -this.x + 100;
       this.helloEndboss();
     }, 1000 / 60);
+  }
 
+  animation() {
     setInterval(() => {
       this.walking_sound.pause();
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
-        this.hurt_sound.volume = 0.2;
-        this.hurt_sound.play();
+        this.playSound(this.hurt_sound, 0.2);
       } else if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
         this.walking_sound.pause();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.playAnimation(this.IMAGES_WALKING);
-        this.walking_sound.volume = 0.2;
-        this.walking_sound.play();
+        this.playSound(this.walking_sound, 0.2);
       } else {
         this.playAnimation(this.IMAGES_IDLE);
       }
@@ -125,5 +130,10 @@ class Character extends MovableObject {
         showEndscreen(this);
       }, 1500);
     }
+  }
+
+  playSound(sound, volume) {
+    sound.volume = volume;
+    sound.play();
   }
 }

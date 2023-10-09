@@ -7,8 +7,8 @@ class MiniChicken extends MovableObject {
   IMAGES_DEAD = ['img/3_enemies_chicken/chicken_small/2_dead/dead.png'];
   offset = {
     top: 0,
-    left: 10,
-    right: 10,
+    left: 5,
+    right: 5,
     bottom: 0,
   };
   movingLeft = true;
@@ -30,6 +30,11 @@ class MiniChicken extends MovableObject {
   }
 
   animate() {
+    this.movement();
+    this.animation();
+  }
+
+  movement() {
     setInterval(() => {
       if (this.x >= 2200) {
         this.movingLeft = true;
@@ -45,12 +50,14 @@ class MiniChicken extends MovableObject {
         this.otherDirection = true;
       }
     }, 1000 / 60);
+  }
 
+  animation() {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         setInterval(() => {
-          this.remove(world.level.enemies);
+          this.removeObject(world.level.enemies);
         }, 250);
       } else {
         this.playAnimation(this.IMAGES_WALKING);

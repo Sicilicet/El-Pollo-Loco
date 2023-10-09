@@ -29,7 +29,12 @@ class Chicken extends MovableObject {
     this.animate();
   }
 
-  animate() { 
+  animate() {
+    this.movement();
+    this.animation();
+  }
+
+  movement() {
     setInterval(() => {
       if (this.x >= 2200) {
         this.movingLeft = true;
@@ -45,12 +50,14 @@ class Chicken extends MovableObject {
         this.otherDirection = true;
       }
     }, 1000 / 60);
+  }
 
+  animation() {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         setInterval(() => {
-          this.remove(world.level.enemies);
+          this.removeObject(world.level.enemies);
         }, 250);
       } else {
         this.playAnimation(this.IMAGES_WALKING);

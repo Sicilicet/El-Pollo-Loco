@@ -28,8 +28,7 @@ class World {
   }
 
   run() {
-    this.chicken_sound.volume = 0.4;
-    this.chicken_sound.play();
+    this.playBackgroundSound();
     setInterval(() => {
       this.checkCollisions();
     }, 70);
@@ -125,15 +124,24 @@ class World {
     setTimeout(() => {
       item.collect_coin.pause();
     }, 400);
-    item.remove(this.level.coins);
+    item.removeObject(this.level.coins);
     this.character.collectedCoins++;
     this.coinBar.setPercentage(this.character.collectedCoins);
   }
 
   whatToDoWithBottle(item) {
-    item.remove(this.level.bottles);
+    item.removeObject(this.level.bottles);
     this.character.collectedBottles++;
     this.bottleBar.setPercentage(this.character.collectedBottles);
+  }
+
+  playBackgroundSound() {
+    this.chicken_sound.volume = 0.4;
+    this.chicken_sound.play();
+    this.chicken_sound.addEventListener('ended', () => {
+      this.chicken_sound.currentTime = 0;
+      this.chicken_sound.play();
+    });
   }
 
   draw() {
