@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyBoard = new Keyboard();
+let isSoundPaused = false;
 
 let StartEndscreen = new Audio('audio/game_music.mp3');
 StartEndscreen.volume = 0.2;
@@ -122,7 +123,8 @@ function startGame2() {
   init();
 }
 
-function showEndscreen(who) {
+function showEndscreen(endboss) {
+  stopGame();
   playMusic();
   world.chicken_sound.pause();
   world.character.endboss_music.pause();
@@ -131,7 +133,7 @@ function showEndscreen(who) {
   document.getElementById('buttons').classList.add('d-none');
   document.getElementById('mobilButtons').classList.remove('mobileButtons');
   document.getElementById('winOrLose').innerHTML = '';
-  if (who instanceof Endboss) {
+  if (endboss.dead) {
     document.getElementById('winOrLose').innerHTML = 'YOU WIN';
   } else {
     document.getElementById('winOrLose').innerHTML = 'YOU LOSE';
@@ -140,13 +142,22 @@ function showEndscreen(who) {
 
 function toggleSound() {
   let image = document.getElementById('speaker');
-  if (world.chicken_sound.paused) {
+  if (isSoundPaused) {
     world.chicken_sound.play();
+    world.character.walking_sound.play();
     image.src = 'img/volume.png';
+    isSoundPaused = false;
   } else {
     world.chicken_sound.pause();
+    world.character.walking_sound.pause();
     image.src = 'img/mute.png';
+    isSoundPaused = true;
   }
+}
+
+
+function stopGame() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 function init() {

@@ -12,7 +12,7 @@ class EnbossBar extends DrawableObject {
   constructor() {
     super();
     this.loadImages(this.IMAGES_BOSSBAR);
-    this.x = 500;
+    this.x = 480;
     this.y = 0;
     this.width = 200;
     this.height = 60;

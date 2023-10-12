@@ -41,13 +41,19 @@ class MiniChicken extends MovableObject {
       } else if (this.x <= 0) {
         this.movingLeft = false;
       }
-
-      if (this.movingLeft) {
-        this.moveLeft();
-        this.otherDirection = false;
+      if (this.isDead()) {
+        setTimeout(() => {
+          this.moveLeft();
+          this.moveRight();
+        }, 10);
       } else {
-        this.moveRight();
-        this.otherDirection = true;
+        if (this.movingLeft) {
+          this.moveLeft();
+          this.otherDirection = false;
+        } else {
+          this.moveRight();
+          this.otherDirection = true;
+        }
       }
     }, 1000 / 60);
   }

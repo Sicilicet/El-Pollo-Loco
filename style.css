@@ -264,7 +264,7 @@ canvas {
   position: absolute;
   height: 30px;
   width: 30px;
-  bottom: 2%;
+  top: 2%;
   right: 1%;
   display: flex;
   justify-content: center;

@@ -47,7 +47,7 @@ class Endboss extends MovableObject {
   y = -40;
   alerted = false;
   dead = false;
-  damage = 20;
+  damage = 100;
 
   constructor() {
     super().loadImage(this.IMAGES_WALKING[0]);
