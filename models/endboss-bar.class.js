@@ -19,8 +19,12 @@ class EnbossBar extends DrawableObject {
     this.setPercentage(100);
   }
 
+  /**
+   * Sets the percentage value and updates the image of the end boss bar accordingly.
+   * @param {number} percentage - The percentage value to be set.
+   */
   setPercentage(percentage) {
-    this.percentage = percentage; // => 0 ... 5
+    this.percentage = percentage;
     let path = this.IMAGES_BOSSBAR[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }

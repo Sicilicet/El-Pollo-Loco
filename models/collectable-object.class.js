@@ -1,6 +1,6 @@
 class CollectableObject extends MovableObject {
-    x;
-    y;
-    width;
-    height;
+  x;
+  y;
+  width;
+  height;
 }

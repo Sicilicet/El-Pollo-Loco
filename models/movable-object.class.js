@@ -8,6 +8,10 @@ class MovableObject extends DrawableObject {
   isFalling = false;
   endboss_music = new Audio('audio/boss_sound.mp3');
 
+  /**
+   * Simulates gravity and updates the vertical position and speed of an object.
+   * This method is intended to be called periodically to apply gravity to the object.
+   */
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -17,6 +21,10 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**
+   * Checks if the object is above the ground or falling.
+   * @returns {boolean} Returns `true` if the object is above the ground or if it's an instance of ThrowableObject, otherwise `false`.
+   */
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -26,6 +34,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Determines the hitbox X-coordinate for the given moving object based on the current direction.
+   * @param {MovingObject} mo - The moving object for which the hitbox X-coordinate needs to be determined.
+   */
   whichDirection(mo) {
     if (this.otherDirection) {
       this.hitboxX = this.x + this.offset.right;
@@ -42,6 +54,11 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Defines the hitbox dimensions for the current object and another object to check for collisions.
+   * @param {Object} mo - The object for which the hitbox dimensions need to be calculated.
+   * @property {Object} mo.offset - The offset values for the object's hitbox (top, left, right, bottom).
+   */
   hitbox(mo) {
     this.hitboxY = this.y + this.offset.top;
     this.hitboxWidth = this.width - (this.offset.left + this.offset.right);
@@ -51,6 +68,11 @@ class MovableObject extends DrawableObject {
     mo.hitboxHeight = mo.height - mo.offset.bottom;
   }
 
+  /**
+   * Checks whether the current object is colliding with another object based on their hitboxes.
+   * @param {Object} mo - The object to check for collision with.
+   * @returns {boolean} True if the objects are colliding, false otherwise.
+   */
   isColliding(mo) {
     return (
       this.hitboxX + this.hitboxWidth > mo.hitboxX &&
@@ -60,6 +82,11 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * Reduces the health of the target object based on the damage inflicted by a missile.
+   * @param {Object} mo - The missile object containing damage information.
+   * @param {number} mo.damage - The amount of damage inflicted by the missile.
+   */
   hit(mo) {
     if (mo.damage > 0) {
       this.health -= mo.damage;
@@ -71,6 +98,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Checks if the object is hurt based on the time elapsed since the last hit.
+   * @returns {boolean} Returns true if the object was hit within the last second, false otherwise.
+   */
   isHurt() {
     let timespassed = new Date().getTime() - this.lastHit;
     timespassed = timespassed / 1000;
@@ -81,6 +112,10 @@ class MovableObject extends DrawableObject {
     return this.health == 0;
   }
 
+  /**
+   * Removes the specified object from the provided array.
+   * @param {Array} object - The array from which the object needs to be removed.
+   */
   removeObject(object) {
     let index = object.indexOf(this);
     if (index !== -1) {
@@ -88,6 +123,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Plays an animation using a sequence of images.
+   * @param {string[]} images - An array of strings representing the paths to the images in the animation sequence.
+   */
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
@@ -95,11 +134,15 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  /**
+   * Handles the logic for triggering the end boss encounter when the character's X-coordinate is at 2000.
+   * If the end boss has not been added and the character's X-coordinate is 2000, it sets the trigger flag,
+   * adds the end boss, and plays the end boss music.
+   */
   helloEndboss() {
     if (!this.endbossAdded && this.world.character.x === 2000) {
       this.triggerd_boss = true;
       this.endbossAdded = true;
-      this.endboss_music.volume = 0.2;
       this.endboss_music.play();
       world.level.endboss.push(new Endboss());
     }

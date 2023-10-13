@@ -20,6 +20,10 @@ class BottleBar extends DrawableObject {
     this.setPercentage(0);
   }
 
+  /**
+   * Sets the percentage value and updates the image of the bottle bar accordingly.
+   * @param {number} percentage - The percentage value to be set.
+   */
   setPercentage(percentage) {
     this.percentage = (percentage / this.maxBottels) * 100;
     let path = this.IMAGES_BOTTLEBAR[this.resolveImageIndex()];

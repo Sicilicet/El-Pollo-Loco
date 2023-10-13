@@ -144,17 +144,20 @@ function toggleSound() {
   let image = document.getElementById('speaker');
   if (isSoundPaused) {
     world.chicken_sound.play();
-    world.character.walking_sound.play();
+    world.character.walking_sound.volume = 0.4;
+    world.character.hurt_sound.volume = 0.4;
+    world.character.endboss_music.volume = 0.2;
     image.src = 'img/volume.png';
     isSoundPaused = false;
   } else {
     world.chicken_sound.pause();
-    world.character.walking_sound.pause();
+    world.character.walking_sound.volume = 0;
+    world.character.hurt_sound.volume = 0;
+    world.character.endboss_music.volume = 0;
     image.src = 'img/mute.png';
     isSoundPaused = true;
   }
 }
-
 
 function stopGame() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);

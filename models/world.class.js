@@ -10,7 +10,6 @@ class World {
   bottleBar = new BottleBar();
   endbossBar = new EnbossBar();
   throwableObjects = [];
-  endboss_music = new Audio('audio/boss_sound.mp3');
   chicken_sound = new Audio('audio/chickens.mp3');
 
   constructor(canvas, keyboard) {
@@ -23,6 +22,10 @@ class World {
     this.runThrowAbleObjects();
   }
 
+  /**
+   * Sets the world property of the character to the current instance.
+   * This method establishes the connection between the character and the world it belongs to.
+   */
   setWorld() {
     this.character.world = this;
   }
@@ -46,6 +49,11 @@ class World {
     this.checkCollisionItem();
   }
 
+  /**
+   * Checks if the 'D' key is pressed and the character has collected bottles.
+   * If conditions are met, creates a new throwable object at the character's position,
+   * decrements the collected bottles count, and updates the bottle bar percentage.
+   */
   checkThrowObjects() {
     if (this.keyboard.D) {
       if (this.character.collectedBottles > 0) {
@@ -59,6 +67,11 @@ class World {
     }
   }
 
+  /**
+   * Checks collisions between the character and enemies in the game.
+   * Detects if the character collides with enemies, handles collisions based on different scenarios,
+   * and updates the character's health and enemy states accordingly.
+   */
   checkCollisionsEnemy() {
     let allEnemyTypes = [this.level.enemies, this.level.endboss];
     allEnemyTypes.forEach((allEnemy) => {
@@ -77,6 +90,11 @@ class World {
     });
   }
 
+  /**
+   * Checks if the end boss is hit by a thrown bottle and handles the collision logic.
+   * Iterates through the end boss and throwable objects arrays to detect collisions.
+   * If a collision is detected, the end boss is damaged by the bottle and its health is updated.
+   */
   endbossIsHitByBottle() {
     this.level.endboss.forEach((endboss) => {
       this.checkIfAlive(endboss);
@@ -91,6 +109,12 @@ class World {
     });
   }
 
+  /**
+   * Checks if the end boss is alive or not based on their health.
+   * @param {object} endboss - The end boss object containing health and dead status.
+   * If the end boss's health is less than or equal to 0 and the end boss is not already dead,
+   * updates the end boss's status to dead, sets their health to 0, and marks the character as having killed the end boss.
+   */
   checkIfAlive(endboss) {
     if (endboss.health <= 0 && !endboss.dead) {
       endboss.dead = true;
@@ -99,6 +123,10 @@ class World {
     }
   }
 
+  /**
+   * Checks for collisions between the character and collectable items (coins and bottles) in the level.
+   * Iterates through the collectable items, determines collision, and triggers appropriate actions.
+   */
   checkCollisionItem() {
     if (this.character) {
       let collectableItems = [this.level.coins, this.level.bottles];
@@ -119,7 +147,11 @@ class World {
   }
 
   whatToDoWithCoin(item) {
-    item.collect_coin.volume = 0.2;
+    if (isSoundPaused) {
+      item.collect_coin.volume = 0;
+    } else {
+      item.collect_coin.volume = 0.2;
+    }
     item.collect_coin.play();
     setTimeout(() => {
       item.collect_coin.pause();
@@ -147,20 +179,16 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_X, 0);
-
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
-
     this.ctx.translate(-this.camera_X, 0);
-
     this.drawEnbossBar();
     this.addToMap(this.healthBar);
     this.addToMap(this.coinBar);
     this.addToMap(this.bottleBar);
     this.ctx.translate(this.camera_X, 0);
-
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.endboss);
@@ -196,6 +224,11 @@ class World {
     }
   }
 
+  /**
+   * Flips the given image horizontally.
+   * @param {Object} mo - The image object to be flipped.
+   * @property {CanvasRenderingContext2D} this.ctx - The 2D rendering context of the canvas.
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);

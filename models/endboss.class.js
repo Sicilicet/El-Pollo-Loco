@@ -95,6 +95,7 @@ class Endboss extends MovableObject {
   }
 
   animations() {
+    this.endboss_music.volume = 0.2;
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
     } else if (this.isHurt() && !this.isDead()) {

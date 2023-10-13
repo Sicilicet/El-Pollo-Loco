@@ -18,6 +18,10 @@ class DrawableObject {
     this.img.src = path;
   }
 
+  /**
+   * Loads images from the provided array of file paths and caches them for future use.
+   * @param {string[]} arr - An array of file paths representing the images to be loaded.
+   */
   loadImages(arr) {
     arr.forEach((path) => {
       let img = new Image();

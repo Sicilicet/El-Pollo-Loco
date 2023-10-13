@@ -43,6 +43,11 @@ class ThrowableObject extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Simulates throwing a bottle. If the bottle is flying, it moves horizontally by 4 units.
+   * If the bottle is flying and its vertical position plus height is greater than or equal to 420,
+   * it stops flying.
+   */
   throwBottle() {
     if (this.isFlying) {
       this.x += 4;
@@ -54,18 +59,25 @@ class ThrowableObject extends MovableObject {
 
   bottleSoundAndAnimation() {
     if (this.isFlying) {
-      this.throw_sound.volume = 0.2;
-      this.throw_sound.play();
+      this.toggleSound(this.throw_sound);
       this.playAnimation(this.ROTATING_BOTTLE);
     }
     if (!this.isFlying) {
       this.throw_sound.pause();
       if (!this.isBroken) {
-        this.break_sound.volume = 0.2;
-        this.break_sound.play();
+        this.toggleSound(this.break_sound);
         this.isBroken = true;
         this.playAnimation(this.BREAK_BOTTLE);
       }
+    }
+  }
+
+  toggleSound(sound) {
+    if (isSoundPaused) {
+      sound.volume = 0;
+    } else {
+      sound.volume = 0.2;
+      sound.play();
     }
   }
 }
